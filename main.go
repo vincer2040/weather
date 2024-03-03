@@ -1,7 +1,14 @@
 package main
 
-import "github.com/vincer2040/weather/cmd/weather"
+import (
+	"log"
+
+	"github.com/vincer2040/weather/cmd/weather"
+)
 
 func main() {
-    weather.Main()
+    err := weather.Main()
+    if err != nil {
+        log.Fatalln(err)
+    }
 }
