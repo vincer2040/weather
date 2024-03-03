@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", () => {
+function mobileMenuMain() {
     const btn = document.getElementById("menu-btn");
     const showMenuSVG = document.getElementById("show-menu");
     const closeMenuSVG = document.getElementById("close-menu");
@@ -27,4 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
             menuState = true;
         }
     });
-});
+}
+
+mobileMenuMain();
+

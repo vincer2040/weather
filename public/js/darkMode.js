@@ -1,5 +1,5 @@
 
-window.addEventListener("DOMContentLoaded", () => {
+function darkModeMain() {
     const lightSwitch = document.getElementById("light-switch");
     const html = document.querySelector("html");
     lightSwitch.addEventListener("click", (e) => {
@@ -20,4 +20,6 @@ window.addEventListener("DOMContentLoaded", () => {
             });
         html.classList.toggle("dark");
     });
-});
+}
+
+darkModeMain();
