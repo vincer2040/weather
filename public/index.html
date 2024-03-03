@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+{{ if .SessionData.DarkMode }}
+<html lang="en" class="dark">
+{{ else }}
 <html lang="en">
+{{ end }}
     <head>
         <meta charset="UTF-8">
         <title>Weather</title>
@@ -8,7 +12,6 @@
     </head>
     <body>
         {{ template "Navbar" . }}
-
         <script src="/js/darkMode.js"></script>
     </body>
 </html>

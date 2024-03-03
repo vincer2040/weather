@@ -35,6 +35,8 @@ func Main() error {
 	e.Static("/css", "public/css")
 	e.Static("/js", "public/js")
 	e.GET("/", routes.RootGet)
+    e.POST("/enable-dark-mode", routes.EnableDarkModePost)
+    e.POST("/disable-dark-mode", routes.DisableDarkModePost)
 
 	e.Logger.Fatal(e.Start(":8080"))
 
