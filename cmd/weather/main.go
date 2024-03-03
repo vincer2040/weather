@@ -12,6 +12,7 @@ func Main() {
 
 	e.Renderer = render.New()
 	e.Use(middleware.Logger())
+	e.Static("/css", "public/css")
 	e.GET("/", routes.RootGet)
 
 	e.Logger.Fatal(e.Start(":8080"))
