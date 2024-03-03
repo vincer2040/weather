@@ -5,5 +5,5 @@ all:
 
 .PHONY: dev
 dev:
-	air
+	air & pnpm css
 
