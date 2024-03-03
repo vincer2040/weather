@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "css": "npx tailwindcss -i ./css/index.css -o ./public/css/index.css --watch"
     },
