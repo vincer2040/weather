@@ -8,7 +8,7 @@ import (
 	"github.com/vincer2040/weather/internal/wsession"
 )
 
-func RootGet(c echo.Context) error {
+func SigninGet(c echo.Context) error {
 	cc := c.(wctx.WCtx)
 	session, err := cc.Store.Get(cc.Request(), "session")
 	if err != nil {
@@ -19,8 +19,8 @@ func RootGet(c echo.Context) error {
 		return err
 	}
 	sessionData := wsession.GetSessionData(session)
-	return cc.Render(http.StatusOK, "index.html", map[string]interface{}{
+	return cc.Render(http.StatusOK, "signin.html", map[string]interface{}{
 		"SessionData": sessionData,
-		"Route":       "root",
+		"Route":       "signin",
 	})
 }
