@@ -11,6 +11,9 @@ window.addEventListener("DOMContentLoaded", () => {
                 if (res.ok === null) {
                     return;
                 }
+                if (res.ok === true) {
+                    return;
+                }
             })
             .catch((err) => {
                 console.error(err)
