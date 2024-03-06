@@ -7,14 +7,16 @@ import (
 )
 
 type SessionData struct {
-	DarkMode      bool
+	UserId        int
 	Authenticated bool
+	DarkMode      bool
 }
 
 func Setup(session *sessions.Session, r *http.Request, w http.ResponseWriter) error {
 	if !session.IsNew {
 		return nil
 	}
+	session.Values["userID"] = -1
 	session.Values["darkMode"] = false
 	session.Values["authenticated"] = false
 	err := session.Save(r, w)
@@ -26,7 +28,8 @@ func Setup(session *sessions.Session, r *http.Request, w http.ResponseWriter) er
 
 func GetSessionData(session *sessions.Session) SessionData {
 	return SessionData{
-		DarkMode:      session.Values["darkMode"].(bool),
+		UserId:        session.Values["userID"].(int),
 		Authenticated: session.Values["authenticated"].(bool),
+		DarkMode:      session.Values["darkMode"].(bool),
 	}
 }
