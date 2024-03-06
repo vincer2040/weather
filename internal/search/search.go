@@ -17,14 +17,26 @@ func New() (*Search, error) {
 	if err != nil {
 		return nil, err
 	}
+	states, err := GetStatesMap()
+	if err != nil {
+		return nil, err
+	}
 	var cities []string
 	m := make(map[string][]City)
 	for _, cityItem := range cityItems {
 		city := strings.ToLower(cityItem.City)
+		stateCode := strings.ToLower(cityItem.State)
+		stateFull := strings.ToLower(states[cityItem.State])
+		cityState := city + ", " + stateCode
+		cityStateFull := city + ", " + stateFull
 		if len(m[city]) == 0 {
 			cities = append(cities, city)
 		}
+		cities = append(cities, cityState)
+		cities = append(cities, cityStateFull)
 		m[city] = append(m[city], cityItem)
+		m[cityState] = append(m[cityState], cityItem)
+		m[cityStateFull] = append(m[cityStateFull], cityItem)
 	}
 	search := &Search{
 		Cities: cities,
@@ -45,8 +57,13 @@ func (s *Search) GetTopTen(input string) Cities {
 		if len(cities) >= 10 {
 			break
 		}
-		city := s.Map[match.Target]
-		cities = append(cities, city...)
+		matchedCities := s.Map[match.Target]
+		for _, match := range matchedCities {
+			if cities.Contains(match) {
+				continue
+			}
+			cities = append(cities, match)
+		}
 	}
 	if len(cities) > 10 {
 		cities = cities[:10]

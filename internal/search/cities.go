@@ -33,3 +33,12 @@ func GetCities() (Cities, error) {
 	}
 	return cities, nil
 }
+
+func (cities Cities) Contains(city City) bool {
+	for _, c := range cities {
+		if c == city {
+			return true
+		}
+	}
+	return false
+}
