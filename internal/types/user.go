@@ -1,6 +1,9 @@
 package types
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
 	ID        int
@@ -8,6 +11,28 @@ type User struct {
 	FirstName string
 	LastName  string
 	Password  string
+}
+
+func NewUser(username, firstname, lastname, password string) *User {
+	return &User{
+		Username:  username,
+		FirstName: firstname,
+		LastName:  lastname,
+		Password:  password,
+	}
+}
+
+func UserFromRequest(c echo.Context) *User {
+	return &User{
+		Username:  c.FormValue("username"),
+		FirstName: c.FormValue("firstname"),
+		LastName:  c.FormValue("firstname"),
+		Password:  c.FormValue("password"),
+	}
+}
+
+func (user *User) IsValid() bool {
+	return user.Username != "" && user.FirstName != "" && user.LastName != "" && user.Password != ""
 }
 
 func (user *User) HashPassword() error {
