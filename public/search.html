@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{{ if .SessionData.DarkMode }}
+<html lang="en" class="dark">
+{{ else }}
+<html lang="en">
+{{ end }}
+    <head>
+        <meta charset="UTF-8">
+        <title>Weather</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    </head>
+    <body class="dark:bg-gray-700 h-full">
+        {{ template "HomeNavbar" . }}
+        <main>
+            <article class="pt-7">
+                <div>
+                    <form hx-get="city-search" class="max-w-md mx-auto">
+                        <label
+                            for="city"
+                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+                            City
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                            <input
+                            type="search"
+                            id="city"
+                            name="city"
+                            autocomplete="off"
+                            hx-get="/city-autocomplete"
+                            hx-target="#search-autocomplete"
+                            hx-trigger="keyup"
+                            hx-swap="outerHTML"
+                            class="block w-full
+                            p-4 ps-10
+                            text-sm text-gray-900
+                            border border-gray-300 rounded-lg
+                            bg-gray-50
+                            focus:ring-blue-500 focus:border-blue-500
+                            dark:bg-gray-700 dark:border-gray-600
+                            dark:placeholder-gray-400
+                            dark:text-white
+                            dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search City..." required />
+                            <button
+                                type="submit"
+                                class="text-white
+                                absolute end-2.5 bottom-2.5
+                                bg-blue-700 hover:bg-blue-800
+                                focus:ring-4 focus:outline-none focus:ring-blue-300
+                                font-medium text-sm
+                                rounded-lg px-4 py-2
+                                dark:bg-blue-600 dark:hover:bg-blue-700
+                                dark:focus:ring-blue-800">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div id="search-autocomplete" class="max-w-md mx-auto">
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="py-3">
+                        <h2 class="dark:text-white text-xl">{{ .Location.Name }}, {{ .Location.Region }}</h2>
+                    </div>
+                    <div class="w-full flex flex-col items-center justify-center">
+                        <div class="w-full flex items-center justify-center gap-x-3">
+                            <button
+                                class="bg-gray-800
+                                text-white
+                                rounded-md px-3 py-2
+                                text-sm font-medium">
+                                Current
+                            </button>
+                            <button
+                                class="text-black dark:text-white
+                                rounded-md px-3 py-2
+                                text-sm font-medium
+                                hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600">
+                                Week Forcast
+                            </button>
+                        </div>
+                        <div class="py-2">
+                            <h2 class="dark:text-white text-lg">Current Weather</h2>
+                        </div>
+                        <table class="dark:text-white max-w-md w-full">
+                            <tbody>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Temperature</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.TempF }}&deg;F</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Feels Like</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.FeelsLikeF }}&deg;F</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Precipitation</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.PrecipIN }} in</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Wind</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.WindMPH }} mph</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Wind Direction</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.WindDir }}</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Wind Gusts</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.GustMPH }} mph</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Humidity</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.Humidity }}%</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Cloud Coverage</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.Cloud }}%</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">UV Index</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.UV }}</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Pressure</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.PressureIN }} PSI</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Visibility</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .Current.VisMiles }} miles</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="py-2">
+                            <h2 class="dark:text-white text-lg">Todays Forecast</h2>
+                        </div>
+                        <table class="dark:text-white max-w-md w-full">
+                            <tbody>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">High</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .TodaysForecast.Day.MaxTempF }}&deg;F</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Low</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .TodaysForecast.Day.MinTempF }}&deg;F</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Chance of Rain</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .TodaysForecast.Day.DailyChanceOfRain }}%</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Chance of Snow</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .TodaysForecast.Day.DailyChanceOfSnow }}%</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Sunrise</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .TodaysForecast.Astro.Sunrise }}</td>
+                                </tr>
+                                <tr class="border-t border-t-gray-400 dark:border-gray-800">
+                                    <th scope="row" class="w-1/2 py-2">Sunset</th>
+                                    <td class="w-1/2 py-2 text-center">{{ .TodaysForecast.Astro.Sunset }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </article>
+        </main>
+        <script src="/js/darkMode.js"></script>
+        <script src="/js/mobileMenu.js"></script>
+    </body>
+</html>

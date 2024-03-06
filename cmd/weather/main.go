@@ -51,10 +51,11 @@ func Main() error {
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			cc := wctx.WCtx{
-				Context: c,
-				Store:   store,
-				DB:      db,
-				Search:  s,
+				Context:       c,
+				Store:         store,
+				DB:            db,
+				Search:        s,
+				WeatherApiKey: env.GetWeatherApiKey(),
 			}
 			return next(cc)
 		}
@@ -71,6 +72,7 @@ func Main() error {
 	e.GET("/home", appmiddleware.AuthMiddleware(routes.HomeGet))
 	e.GET("/city-search", appmiddleware.AuthMiddleware(routes.CitySearchGet))
 	e.GET("/city-autocomplete", appmiddleware.AuthMiddleware(routes.CityAutocompleteGet))
+	e.GET("/search/:zip", appmiddleware.AuthMiddleware(routes.SearchGet))
 	e.GET("/me", appmiddleware.AuthMiddleware(routes.MeGet))
 	e.POST("/enable-dark-mode", routes.EnableDarkModePost)
 	e.POST("/disable-dark-mode", routes.DisableDarkModePost)

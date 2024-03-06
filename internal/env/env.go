@@ -26,3 +26,7 @@ func GetDBURL() string {
 	}
 	return os.Getenv("DB_URL")
 }
+
+func GetWeatherApiKey() string {
+    return os.Getenv("WEATHER_API_KEY")
+}

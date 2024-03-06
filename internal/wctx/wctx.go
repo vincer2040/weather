@@ -9,7 +9,8 @@ import (
 
 type WCtx struct {
 	echo.Context
-	Store  *sessions.CookieStore
-	DB     *db.DB
-	Search *search.Search
+	Store         *sessions.CookieStore
+	DB            *db.DB
+	Search        *search.Search
+	WeatherApiKey string
 }

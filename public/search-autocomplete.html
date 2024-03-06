@@ -1,10 +1,23 @@
 {{ if eq .Len 0 }}
-{{ else }}
-{{ range .Cities }}
-<div class="flex items-center justify-center gap-3 w-full dark:text-white">
-    <p>{{ .City }}</p>
-    <p>{{ .State }}</p>
-    <p>{{ .Zip }}</p>
+<div id="search-autocomplete" class="max-w-md mx-auto">
 </div>
+{{ else }}
+<div id="search-autocomplete"
+    class="max-w-md mx-auto
+    px-8 pt-6 pb-8 mb-4
+    bg-white dark:bg-gray-800
+    dark:text-white
+    shadow-md rounded">
+{{ range .Cities }}
+    <div
+        hx-get="/search/{{ .Zip }}"
+        hx-push-url="true"
+        hx-target="body"
+        class="flex items-center justify-center gap-3 w-full border-t border-t-gray-300 py-2 cursor-pointer">
+        <p>{{ .City }}</p>
+        <p>{{ .State }}</p>
+        <p>{{ .Zip }}</p>
+    </div>
 {{ end }}
+</div>
 {{ end }}
