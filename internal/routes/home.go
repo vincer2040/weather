@@ -14,10 +14,6 @@ func HomeGet(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	err = wsession.Setup(session, cc.Request(), cc.Response())
-	if err != nil {
-		return err
-	}
 	sessionData := wsession.GetSessionData(session)
 	return cc.Render(http.StatusOK, "home.html", map[string]interface{}{
 		"SessionData": sessionData,

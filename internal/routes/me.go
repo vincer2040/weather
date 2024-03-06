@@ -14,10 +14,6 @@ func MeGet(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	err = wsession.Setup(session, cc.Request(), cc.Response())
-	if err != nil {
-		return err
-	}
 	sessionData := wsession.GetSessionData(session)
 	user, err := cc.DB.GetUserById(sessionData.UserId)
 	if err != nil {
