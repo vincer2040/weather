@@ -8,14 +8,16 @@ import (
 type User struct {
 	ID        int
 	Username  string
+	Email     string
 	FirstName string
 	LastName  string
 	Password  string
 }
 
-func NewUser(username, firstname, lastname, password string) *User {
+func NewUser(username, email, firstname, lastname, password string) *User {
 	return &User{
 		Username:  username,
+		Email:     email,
 		FirstName: firstname,
 		LastName:  lastname,
 		Password:  password,
@@ -25,6 +27,7 @@ func NewUser(username, firstname, lastname, password string) *User {
 func UserFromRequest(c echo.Context) *User {
 	return &User{
 		Username:  c.FormValue("username"),
+		Email:     c.FormValue("email"),
 		FirstName: c.FormValue("firstname"),
 		LastName:  c.FormValue("firstname"),
 		Password:  c.FormValue("password"),
@@ -32,7 +35,7 @@ func UserFromRequest(c echo.Context) *User {
 }
 
 func (user *User) IsValid() bool {
-	return user.Username != "" && user.FirstName != "" && user.LastName != "" && user.Password != ""
+	return user.Username != "" && user.Email != "" && user.FirstName != "" && user.LastName != "" && user.Password != ""
 }
 
 func (user *User) HashPassword() error {
