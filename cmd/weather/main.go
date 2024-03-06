@@ -26,6 +26,11 @@ func Main() error {
 		return err
 	}
 
+	// err = db.DropUserTable()
+	// if err != nil {
+	//     return err
+	// }
+
 	err = db.CreateUserTable()
 	if err != nil {
 		return err
@@ -52,9 +57,12 @@ func Main() error {
 	e.Static("/assets", "public/assets")
 	e.GET("/", appmiddleware.AuthMiddleware(routes.RootGet))
 	e.GET("/signin", appmiddleware.AuthMiddleware(routes.SigninGet))
+	e.POST("/signin", appmiddleware.AuthMiddleware(routes.SigninPost))
 	e.GET("/signup", appmiddleware.AuthMiddleware(routes.SignUpGet))
 	e.POST("/signup", appmiddleware.AuthMiddleware(routes.SignupPost))
+	e.POST("/signout", appmiddleware.AuthMiddleware(routes.SignoutPost))
 	e.GET("/home", appmiddleware.AuthMiddleware(routes.HomeGet))
+	e.GET("/me", appmiddleware.AuthMiddleware(routes.MeGet))
 	e.POST("/enable-dark-mode", routes.EnableDarkModePost)
 	e.POST("/disable-dark-mode", routes.DisableDarkModePost)
 

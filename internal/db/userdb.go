@@ -6,15 +6,23 @@ func (db *DB) CreateUserTable() error {
 	stmt := `
     CREATE TABLE IF NOT EXISTS
     users(
-        ID INTEGER AUTO INCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         firstname TEXT NOT NULL,
         lastname TEXT NOT NULL,
-        password TEXT NOT NULL,
-        PRIMARY KEY (ID, username)
+        password TEXT NOT NULL
     )
     `
 	_, err := db.exec(stmt)
+    if err != nil {
+        return err
+    }
+
+    indexstmt := `
+    CREATE UNIQUE INDEX IF NOT EXISTS username_index ON users(username)
+    `
+
+    _, err = db.exec(indexstmt)
 	return err
 }
 
@@ -23,13 +31,13 @@ func (db *DB) InsertUser(user *types.User) (int, error) {
     INSERT INTO
     users(username, firstname, lastname, password)
     VALUES(?, ?, ?, ?)
-    RETURNING ID
+    RETURNING id
     `
 	row := db.queryRow(stmt, user.Username, user.FirstName, user.LastName, user.Password)
 	var id int
-	err := row.Scan(&id)
+    err := row.Scan(&id)
 	if err != nil {
-		return 0, nil
+		return 0, err
 	}
 	return id, nil
 }
@@ -37,7 +45,7 @@ func (db *DB) InsertUser(user *types.User) (int, error) {
 func (db *DB) GetUserById(id int) (*types.User, error) {
 	stmt := `
     SELECT * FROM users
-    WHERE ID = ?
+    WHERE id = ?
     `
 	row := db.queryRow(stmt, id)
 	var user types.User
