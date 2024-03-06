@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{{ if .SessionData.DarkMode }}
+<html lang="en" class="dark">
+{{ else }}
+<html lang="en">
+{{ end }}
+    <head>
+        <meta charset="UTF-8">
+        <title>Weather</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    </head>
+    <body class="dark:bg-gray-700 h-full">
+        <h1 class="text-xl dark:text-white">Home</h1>
+        <script src="/js/darkMode.js"></script>
+    </body>
+</html>

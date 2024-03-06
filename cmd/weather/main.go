@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/vincer2040/weather/internal/appmiddleware"
 	"github.com/vincer2040/weather/internal/db"
 	"github.com/vincer2040/weather/internal/env"
 	"github.com/vincer2040/weather/internal/render"
@@ -52,6 +53,7 @@ func Main() error {
 	e.GET("/", routes.RootGet)
 	e.GET("/signin", routes.SigninGet)
     e.GET("/signup", routes.SignUpGet)
+    e.GET("/home", appmiddleware.AuthMiddleware(routes.HomeGet))
 	e.POST("/enable-dark-mode", routes.EnableDarkModePost)
 	e.POST("/disable-dark-mode", routes.DisableDarkModePost)
 
