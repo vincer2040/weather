@@ -51,9 +51,9 @@ func Main() error {
 	e.Static("/js", "public/js")
 	e.Static("/assets", "public/assets")
 	e.GET("/", routes.RootGet)
-	e.GET("/signin", routes.SigninGet)
-    e.GET("/signup", routes.SignUpGet)
-    e.GET("/home", appmiddleware.AuthMiddleware(routes.HomeGet))
+	e.GET("/signin", appmiddleware.AuthMiddleware(routes.SigninGet))
+	e.GET("/signup", appmiddleware.AuthMiddleware(routes.SignUpGet))
+	e.GET("/home", appmiddleware.AuthMiddleware(routes.HomeGet))
 	e.POST("/enable-dark-mode", routes.EnableDarkModePost)
 	e.POST("/disable-dark-mode", routes.DisableDarkModePost)
 
