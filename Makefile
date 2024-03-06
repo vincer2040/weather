@@ -7,3 +7,7 @@ all:
 dev:
 	air & pnpm css
 
+.PHONY: fmt
+fmt:
+	go fmt ./...
+
