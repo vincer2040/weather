@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{{ if .SessionData.DarkMode }}
+<html lang="en" class="dark">
+{{ else }}
+<html lang="en">
+{{ end }}
+    <head>
+        <meta charset="UTF-8">
+        <title>Weather</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    </head>
+    <body class="dark:bg-gray-700 h-full">
+        {{ template "HomeNavbar" . }}
+        <main class="flex items-center justify-center w-full py-10">
+            <article class="flex items-center justify-center w-full">
+                <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ .User.Username }}</h5>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">first name: {{ .User.FirstName }}</p>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">last name: {{ .User.FirstName }}</p>
+                </div>
+            </article>
+        </main>
+        <script src="/js/darkMode.js"></script>
+        <script src="/js/mobileMenu.js"></script>
+    </body>
+</html>
