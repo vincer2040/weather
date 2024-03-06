@@ -55,6 +55,10 @@
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                 Sign in
                             </a>
+                            <a href="/signup"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                Sign up
+                            </a>
                             {{ else if eq .Route "signin" }}
                             <a href="/"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
@@ -64,6 +68,23 @@
                                 class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
                                 Sign in
                             </a>
+                            <a href="/signup"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                Sign up
+                            </a>
+                            {{ else if eq .Route "signup" }}
+                            <a href="/"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                Home
+                            </a>
+                            <a href="/signin"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                Sign in
+                            </a>
+                            <a href="/signup"
+                                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
+                                Sign up
+                            </a>
                             {{ else }}
                             <a href="/"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
@@ -72,6 +93,10 @@
                             <a href="/signin"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                 Sign in
+                            </a>
+                            <a href="/signup"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                                Sign up
                             </a>
                             {{ end }}
                         </div>
