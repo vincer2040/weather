@@ -3,3 +3,4 @@ bin/
 tmp
 node_modules/
 public/css
+testdb/test.db

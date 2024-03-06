@@ -7,10 +7,22 @@ import (
 )
 
 func EnvInit() error {
-    err := godotenv.Load()
-    return err
+	err := godotenv.Load()
+	return err
 }
 
 func GetSessionSecret() string {
-    return os.Getenv("SESSION_SECRET")
+	return os.Getenv("SESSION_SECRET")
+}
+
+func GetProductionValue() bool {
+	isProd := os.Getenv("PRODUCTION")
+	return isProd == "true"
+}
+
+func GetDBURL() string {
+	if GetProductionValue() {
+		return os.Getenv("PROD_DB_URL")
+	}
+	return os.Getenv("DB_URL")
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/vincer2040/weather/internal/db"
 	"github.com/vincer2040/weather/internal/env"
 	"github.com/vincer2040/weather/internal/render"
 	"github.com/vincer2040/weather/internal/routes"
@@ -13,6 +14,18 @@ import (
 func Main() error {
 
 	err := env.EnvInit()
+	if err != nil {
+		return err
+	}
+
+	dbUrl := env.GetDBURL()
+
+	db, err := db.New(dbUrl)
+	if err != nil {
+		return err
+	}
+
+	err = db.CreateUserTable()
 	if err != nil {
 		return err
 	}
@@ -28,6 +41,7 @@ func Main() error {
 			cc := wctx.WCtx{
 				Context: c,
 				Store:   store,
+				DB:      db,
 			}
 			return next(cc)
 		}
