@@ -9,7 +9,7 @@ import (
 )
 
 func MeGet(c echo.Context) error {
-	cc := c.(wctx.WCtx)
+    cc := c.(wctx.WCtx)
 	session, err := cc.Store.Get(cc.Request(), "session")
 	if err != nil {
 		return err

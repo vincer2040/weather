@@ -45,12 +45,12 @@ func SigninPost(c echo.Context) error {
 	if !user.Authenticate(password) {
 		return errors.New("invalid login")
 	}
-    session.Values["userID"] = user.ID
-    session.Values["authenticated"] = true
-    err = session.Save(cc.Request(), cc.Response())
-    if err != nil {
-        return err
-    }
+	session.Values["userID"] = user.ID
+	session.Values["authenticated"] = true
+	err = session.Save(cc.Request(), cc.Response())
+	if err != nil {
+		return err
+	}
 	cc.Response().Header().Add("HX-Location", "/home")
 	return nil
 }

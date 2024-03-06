@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-    err := weather.Main()
-    if err != nil {
-        log.Fatalln(err)
-    }
+	err := weather.Main()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }

@@ -9,5 +9,5 @@ import (
 type WCtx struct {
 	echo.Context
 	Store *sessions.CookieStore
-    DB *db.DB
+	DB    *db.DB
 }
