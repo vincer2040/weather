@@ -48,6 +48,7 @@ func Main() error {
 	})
 	e.Static("/css", "public/css")
 	e.Static("/js", "public/js")
+	e.Static("/assets", "public/assets")
 	e.GET("/", routes.RootGet)
 	e.GET("/signin", routes.SigninGet)
     e.GET("/signup", routes.SignUpGet)
