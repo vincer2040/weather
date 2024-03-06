@@ -43,7 +43,7 @@ func (db *DB) InsertUser(user *types.User) (int, error) {
     VALUES(?, ?, ?, ?, ?)
     RETURNING id
     `
-	row := db.queryRow(stmt, user.Username, user.FirstName, user.LastName, user.Password)
+	row := db.queryRow(stmt, user.Username, user.Email, user.FirstName, user.LastName, user.Password)
 	var id int
 	err := row.Scan(&id)
 	if err != nil {
@@ -59,7 +59,7 @@ func (db *DB) GetUserById(id int) (*types.User, error) {
     `
 	row := db.queryRow(stmt, id)
 	var user types.User
-	err := row.Scan(&user.ID, &user.Username, &user.FirstName, &user.LastName, &user.Password)
+	err := row.Scan(&user.ID, &user.Username, &user.Email, &user.FirstName, &user.LastName, &user.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (db *DB) GetUserByEmail(email string) (*types.User, error) {
 }
 
 func (db *DB) GetUserByUsernameOrEmail(usernameOrEmail string) (*types.User, error) {
-    stmt := `
+	stmt := `
     SELECT * FROM users
     WHERE username = ? OR email = ?
     `
