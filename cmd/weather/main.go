@@ -9,6 +9,7 @@ import (
 	"github.com/vincer2040/weather/internal/env"
 	"github.com/vincer2040/weather/internal/render"
 	"github.com/vincer2040/weather/internal/routes"
+	"github.com/vincer2040/weather/internal/search"
 	"github.com/vincer2040/weather/internal/wctx"
 )
 
@@ -36,6 +37,11 @@ func Main() error {
 		return err
 	}
 
+	s, err := search.New()
+	if err != nil {
+		return err
+	}
+
 	store := sessions.NewCookieStore([]byte(env.GetSessionSecret()))
 
 	e := echo.New()
@@ -48,6 +54,7 @@ func Main() error {
 				Context: c,
 				Store:   store,
 				DB:      db,
+				Search:  s,
 			}
 			return next(cc)
 		}
@@ -62,6 +69,8 @@ func Main() error {
 	e.POST("/signup", appmiddleware.AuthMiddleware(routes.SignupPost))
 	e.POST("/signout", appmiddleware.AuthMiddleware(routes.SignoutPost))
 	e.GET("/home", appmiddleware.AuthMiddleware(routes.HomeGet))
+	e.GET("/city-search", appmiddleware.AuthMiddleware(routes.CitySearchGet))
+	e.GET("/city-autocomplete", appmiddleware.AuthMiddleware(routes.CityAutocompleteGet))
 	e.GET("/me", appmiddleware.AuthMiddleware(routes.MeGet))
 	e.POST("/enable-dark-mode", routes.EnableDarkModePost)
 	e.POST("/disable-dark-mode", routes.DisableDarkModePost)

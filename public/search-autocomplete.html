@@ -1,0 +1,10 @@
+{{ if eq .Len 0 }}
+{{ else }}
+{{ range .Cities }}
+<div class="flex items-center justify-center gap-3 w-full dark:text-white">
+    <p>{{ .City }}</p>
+    <p>{{ .State }}</p>
+    <p>{{ .Zip }}</p>
+</div>
+{{ end }}
+{{ end }}

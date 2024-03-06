@@ -16,7 +16,7 @@
         <main>
             <article class="pt-10">
                 <div>
-                    <form class="max-w-md mx-auto">
+                    <form hx-get="city-search" class="max-w-md mx-auto">
                         <label
                             for="city"
                             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
@@ -33,6 +33,9 @@
                             id="city"
                             name="city"
                             autocomplete="off"
+                            hx-get="/city-autocomplete"
+                            hx-target="#search-autocomplete"
+                            hx-trigger="keyup"
                             class="block w-full
                             p-4 ps-10
                             text-sm text-gray-900
@@ -59,7 +62,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="max-w-md mx-auto">
+                <div id="search-autocomplete" class="max-w-md mx-auto">
                 </div>
             </article>
         </main>
