@@ -21,6 +21,6 @@ func HomeGet(c echo.Context) error {
 	sessionData := wsession.GetSessionData(session)
 	return cc.Render(http.StatusOK, "home.html", map[string]interface{}{
 		"SessionData": sessionData,
-		"Route":       "root",
+		"Route":       "home",
 	})
 }

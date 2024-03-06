@@ -1,4 +1,4 @@
-{{ define "Navbar" }}
+{{ define "HomeNavbar" }}
 <header>
     <nav class="bg-gray-800" hx-boost="true">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -46,58 +46,24 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            {{ if eq .Route "root" }}
-                            <a href="/"
+                            {{ if eq .Route "home" }}
+                            <a href="/home"
                                 class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
                                 Home
                             </a>
-                            <a href="/signin"
+                            <button hx-post="/signout"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign in
-                            </a>
-                            <a href="/signup"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign up
-                            </a>
-                            {{ else if eq .Route "signin" }}
-                            <a href="/"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Home
-                            </a>
-                            <a href="/signin"
-                                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign in
-                            </a>
-                            <a href="/signup"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign up
-                            </a>
-                            {{ else if eq .Route "signup" }}
-                            <a href="/"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Home
-                            </a>
-                            <a href="/signin"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign in
-                            </a>
-                            <a href="/signup"
-                                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign up
-                            </a>
+                                Sign out
+                            </button>
                             {{ else }}
-                            <a href="/"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                            <a href="/home"
+                                class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
                                 Home
                             </a>
-                            <a href="/signin"
+                            <button hx-post="/signout"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign in
-                            </a>
-                            <a href="/signup"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                                Sign up
-                            </a>
+                                Sign out
+                            </button>
                             {{ end }}
                         </div>
                     </div>
@@ -123,62 +89,24 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div class="hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2">
-                {{ if eq .Route "root" }}
-                <a href="/"
-                    class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                    aria-current="page">
+                {{ if eq .Route "home" }}
+                <a href="/home"
+                    class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
                     Home
                 </a>
-                <a href="/signin"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                    Sign In
-                </a>
-                <a href="/signup"
+                <button hx-post="/signout"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                    Sign up
-                </a>
-                {{ else if eq .Route "signin" }}
-                <a href="/"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                    aria-current="page">
-                    Home
-                </a>
-                <a href="/signin"
-                    class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium">
-                    Sign In
-                </a>
-                <a href="/signup"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                    Sign up
-                </a>
-                {{ else if eq .Route "signup" }}
-                <a href="/"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                    aria-current="page">
-                    Home
-                </a>
-                <a href="/signin"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                    Sign In
-                </a>
-                <a href="/signup"
-                    class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium">
-                    Sign up
-                </a>
+                    Sign out
+                </button>
                 {{ else }}
-                <a href="/"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                    aria-current="page">
+                <a href="/home"
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                     Home
                 </a>
-                <a href="/signin"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                    Sign In
-                </a>
-                <a href="/signup"
+                <button hx-post="/signout"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                    Sign up
-                </a>
+                    Sign out
+                </button>
                 {{ end }}
             </div>
         </div>
